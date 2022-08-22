@@ -1,10 +1,17 @@
+import {observer} from "mobx-react-lite";
+import todo from "./store/todo";
 
-
-const Users =()=>{
+const Users = observer( ()=> {
     return (
         <div>
-            <h1>User</h1>
+            {todo.todos.map(t =>
+                <div key={t.id} >
+                    <input type="checkbox" checked={t.completed} onChange={() => todo.completeTodo(t.id)} />
+                    {t.title}
+                    <button onClick={() => todo.removeTodo(t.id)}>X</button>
+                </div>
+            )}
         </div>
     )
-}
+})
 export default Users;
